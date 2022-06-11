@@ -61,5 +61,15 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+private:
+	void InteractStart();
+	void InteractEnd();
+
+public:
+	bool bIsInteractCalled = false;
+	int SwitchesLeft = 5;
+
+	virtual void Tick(float DeltaTime) override;
 };
 
