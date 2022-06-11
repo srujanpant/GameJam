@@ -38,7 +38,7 @@ AGameJamCharacter::AGameJamCharacter()
 
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
+	CameraBoom->SetupAttachment(GetMesh());
 	CameraBoom->TargetArmLength = 400.0f; // The camera follows at this distance behind the character	
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
@@ -58,8 +58,8 @@ void AGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 {
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AGameJamCharacter::StartCrouch);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AGameJamCharacter::EndCrouch);
 
 	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &AGameJamCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &AGameJamCharacter::MoveRight);
@@ -126,4 +126,14 @@ void AGameJamCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void AGameJamCharacter::StartCrouch()
+{
+	Crouch();
+}
+
+void AGameJamCharacter::EndCrouch()
+{
+	UnCrouch();
 }
