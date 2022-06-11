@@ -31,12 +31,13 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 		TArray<AActor*> PatrolPaths;
-	UPROPERTY(EditAnywhere)
-		TEnumAsByte<EPatrolPathBehaviour> PatrolPathBehaviour;
-
-public:
 	int CurrentPathIndex = 0;
 	int PathDirection = 1;
-	bool CheckPathValidity(int currentPathIndex, int pathDirection);
-	FVector GetPathpointLocation(int currentPathIndex);
+
+public:
+	bool CheckPathValidity();
+	FVector GetPathpointLocation();
+	FRotator GetPatrolPathActorRotation();
+	void Increment();
+	void Restart();
 };

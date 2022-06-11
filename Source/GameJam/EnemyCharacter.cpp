@@ -32,15 +32,31 @@ void AEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }
 
-FVector AEnemyCharacter::GetPathpointLocation(int currentPathIndex)
+FVector AEnemyCharacter::GetPathpointLocation()
 {
-	AActor* CurrentPatrolPathActor = PatrolPaths[currentPathIndex];
+	AActor* CurrentPatrolPathActor = PatrolPaths[CurrentPathIndex];
 	FVector PathpointLocation = CurrentPatrolPathActor->GetActorLocation();
 	return PathpointLocation;
 }
 
-bool AEnemyCharacter::CheckPathValidity(int currentPathIndex, int pathDirection)
+bool AEnemyCharacter::CheckPathValidity()
 {
-	bool bCheckPathValidity = PatrolPaths.IsValidIndex(currentPathIndex + pathDirection);
+	bool bCheckPathValidity = PatrolPaths.IsValidIndex(CurrentPathIndex + PathDirection);
 	return bCheckPathValidity;
+}
+
+FRotator AEnemyCharacter::GetPatrolPathActorRotation()
+{
+	AActor* CurrentPatrolPathActor = PatrolPaths[CurrentPathIndex];
+	return CurrentPatrolPathActor->GetActorRotation();
+}
+
+void AEnemyCharacter::Increment()
+{
+	CurrentPathIndex = CurrentPathIndex + PathDirection;
+}
+
+void AEnemyCharacter::Restart()
+{
+	PathDirection = PathDirection * -1;
 }

@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
+#include "EnemyCharacter.h"
 #include "BTTask_FindPathPoint.generated.h"
 
 /**
@@ -14,4 +16,12 @@ class GAMEJAM_API UBTTask_FindPathPoint : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
 	
+protected:
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+private:
+	UPROPERTY(EditAnywhere)
+		FBlackboardKeySelector BB_TargetVector;
+
+	AEnemyCharacter* CurrentEnemy;
 };

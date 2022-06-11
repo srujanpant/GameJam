@@ -10,7 +10,6 @@
 UENUM()
 enum EPatrolPathBehaviour
 {
-	DoNothing		UMETA(DisplayName = "Do Nothing"),
 	PatrolBack      UMETA(DisplayName = "Patrol Back"),
 	Loop			UMETA(DisplayName = "Loop"),
 };
