@@ -15,6 +15,5 @@ EBTNodeResult::Type UBTTask_FindPathPoint::ExecuteTask(UBehaviorTreeComponent& O
     CurrentEnemy = Cast<AEnemy>(OwnerComp.GetAIOwner()->GetPawn());
     FVector EnemyLocation = CurrentEnemy->GetAIDetails(CurrentEnemy, OwnerComp);
     OwnerComp.GetBlackboardComponent()->SetValueAsVector("TargetLocationVector", EnemyLocation);
-    UE_LOG(LogTemp, Warning, TEXT("Works"));
     return EBTNodeResult::Succeeded;
 }

@@ -65,5 +65,15 @@ public:
 private:
 	void StartCrouch();
 	void EndCrouch();
+	void InteractStart();
+	void InteractEnd();
+
+public:
+	bool bIsInteractCalled = false;
+	int SwitchesLeft = 3;
+	int FuseLeft = 1;
+	bool bCanFuse = false;
+
+	virtual void Tick(float DeltaTime) override;
 };
 

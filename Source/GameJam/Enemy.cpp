@@ -7,7 +7,6 @@
 FVector AEnemy::GetAIDetails(AEnemy* CurrentEnemy, UBehaviorTreeComponent& OwnerComp)
 {
 	CurrentEnemy = Cast<AEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-	UE_LOG(LogTemp, Warning, TEXT("G1"));
 	AActor* CurrentPatrolPathActor = PatrolPaths[CurrentPathIndex];
 	FVector EnemyLocation = CurrentPatrolPathActor->GetActorLocation();
 	return EnemyLocation;

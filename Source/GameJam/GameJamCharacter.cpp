@@ -60,6 +60,8 @@ void AGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AGameJamCharacter::StartCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AGameJamCharacter::EndCrouch);
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AGameJamCharacter::InteractStart);
+	PlayerInputComponent->BindAction("Interact", IE_Released, this, &AGameJamCharacter::InteractEnd);
 
 	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &AGameJamCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &AGameJamCharacter::MoveRight);
@@ -75,6 +77,28 @@ void AGameJamCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	// handle touch devices
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &AGameJamCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &AGameJamCharacter::TouchStopped);
+}
+
+void AGameJamCharacter::InteractStart()
+{
+	bIsInteractCalled = true;
+}
+
+void AGameJamCharacter::InteractEnd()
+{
+	bIsInteractCalled = false;
+}
+
+void AGameJamCharacter::Tick(float DeltaTime)
+{
+	if (SwitchesLeft < 1)
+	{
+		bCanFuse = true;
+		if (FuseLeft < 1)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Win"));
+		}
+	}
 }
 
 void AGameJamCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

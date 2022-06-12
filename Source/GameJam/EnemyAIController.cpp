@@ -40,13 +40,11 @@ void AEnemyAIController::PerceptionUpdated(AActor* UpdatedActor, FAIStimulus Sti
 
     if (StimulusName.Contains("sight"))
     {
-        UE_LOG(LogTemp, Warning, TEXT("Entered loop"));
         UBlackboardComponent* AIBlackboardComponent = AEnemyAIController::GetBlackboardComponent();
 
         if (Stimulus.WasSuccessfullySensed())
         {
             AIBlackboardComponent->SetValueAsBool("bIsInvestigating", Stimulus.WasSuccessfullySensed());
-            UE_LOG(LogTemp, Warning, TEXT("Name"));
             AIBlackboardComponent->SetValueAsObject("TargetLocationActor", PlayerCharacter);
         }
         else
