@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AIController.h"
 #include "EnemyCharacter.h"
+#include "AIController.h"
 
 // Sets default values
 AEnemyCharacter::AEnemyCharacter()
@@ -32,31 +32,11 @@ void AEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }
 
-FVector AEnemyCharacter::GetPathpointLocation()
+FVector AEnemyCharacter::GetAIDetails(AEnemyCharacter* CurrentEnemy, UBehaviorTreeComponent& OwnerComp)
 {
+	CurrentEnemy = Cast<AEnemyCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+	UE_LOG(LogTemp, Warning, TEXT("G1"));
 	AActor* CurrentPatrolPathActor = PatrolPaths[CurrentPathIndex];
-	FVector PathpointLocation = CurrentPatrolPathActor->GetActorLocation();
-	return PathpointLocation;
-}
-
-bool AEnemyCharacter::CheckPathValidity()
-{
-	bool bCheckPathValidity = PatrolPaths.IsValidIndex(CurrentPathIndex + PathDirection);
-	return bCheckPathValidity;
-}
-
-FRotator AEnemyCharacter::GetPatrolPathActorRotation()
-{
-	AActor* CurrentPatrolPathActor = PatrolPaths[CurrentPathIndex];
-	return CurrentPatrolPathActor->GetActorRotation();
-}
-
-void AEnemyCharacter::Increment()
-{
-	CurrentPathIndex = CurrentPathIndex + PathDirection;
-}
-
-void AEnemyCharacter::Restart()
-{
-	PathDirection = PathDirection * -1;
+	FVector EnemyLocation = CurrentPatrolPathActor->GetActorLocation();
+	return EnemyLocation;
 }

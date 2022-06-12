@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AIController.h"
 #include "BTTask_FindPathPoint.h"
+#include "AIController.h"
 
 EBTNodeResult::Type UBTTask_FindPathPoint::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
@@ -12,9 +12,9 @@ EBTNodeResult::Type UBTTask_FindPathPoint::ExecuteTask(UBehaviorTreeComponent& O
         return EBTNodeResult::Failed;
     }
 
-    CurrentEnemy = Cast<AEnemyCharacter>(OwnerComp.GetAIOwner()->GetPawn());
-    FVector EnemyLocation = CurrentEnemy->GetPathpointLocation();
+    CurrentEnemy = Cast<AEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    FVector EnemyLocation = CurrentEnemy->GetAIDetails(CurrentEnemy, OwnerComp);
     OwnerComp.GetBlackboardComponent()->SetValueAsVector("TargetLocationVector", EnemyLocation);
-
+    UE_LOG(LogTemp, Warning, TEXT("Works"));
     return EBTNodeResult::Succeeded;
 }

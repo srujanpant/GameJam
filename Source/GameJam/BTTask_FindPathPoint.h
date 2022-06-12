@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
-#include "EnemyCharacter.h"
+#include "Enemy.h"
 #include "BTTask_FindPathPoint.generated.h"
 
 /**
@@ -20,5 +20,5 @@ protected:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 private:
-	AEnemyCharacter* CurrentEnemy;
+	AEnemy* CurrentEnemy;
 };

@@ -1,9 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AIController.h"
 #include "BTTask_NextPathPoint.h"
-#include "EnemyCharacter.h"
-
+#include "Enemy.h"
+#include "AIController.h"
 
 EBTNodeResult::Type UBTTask_NextPathPoint::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
@@ -14,18 +13,18 @@ EBTNodeResult::Type UBTTask_NextPathPoint::ExecuteTask(UBehaviorTreeComponent& O
         return EBTNodeResult::Failed;
     }
 
-    AEnemyCharacter* Enemy = Cast<AEnemyCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+    AEnemy* Enemy = Cast<AEnemy>(OwnerComp.GetAIOwner()->GetPawn());
 
-    bool checkPathValidity = Enemy->CheckPathValidity();
+    bool checkPathValidity = Enemy->CheckValidity(Enemy, OwnerComp, Enemy->CurrentPathIndex, Enemy->PathDirection);
 
     if (checkPathValidity)
     {
-        Enemy->Increment();
+        Enemy->CurrentPathIndex = Enemy->CurrentPathIndex + Enemy->PathDirection;
         return EBTNodeResult::Succeeded;
     }
     else
     {
-        Enemy->Restart();
+        Enemy->PathDirection = Enemy->PathDirection * -1;
         return EBTNodeResult::Succeeded;
     }
 

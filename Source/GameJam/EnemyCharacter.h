@@ -5,7 +5,6 @@
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "PatrolPathBehaviour.h"
 #include "EnemyCharacter.generated.h"
 
 UCLASS()
@@ -28,16 +27,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
 	UPROPERTY(EditAnywhere)
 		TArray<AActor*> PatrolPaths;
+
 	int CurrentPathIndex = 0;
 	int PathDirection = 1;
 
-public:
-	bool CheckPathValidity();
-	FVector GetPathpointLocation();
-	FRotator GetPatrolPathActorRotation();
-	void Increment();
-	void Restart();
+	FVector GetAIDetails(AEnemyCharacter* CurrentEnemy, UBehaviorTreeComponent& OwnerComp);
 };
