@@ -41,10 +41,12 @@ private:
 	AGameJamCharacter* PlayerCharacter;
 public:
 	void Interacted();
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		bool isFuse = false;
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		bool bWidgetDisplay = false;
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		bool bFuseDisplay = false;
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+		bool bInteractFuse = false;
 };

@@ -48,7 +48,7 @@ void AInteractObject::Interacted()
 			PlayerCharacter = Cast<AGameJamCharacter>(inRangeItems[i]);
 		}
 
-		if (PlayerCharacter != nullptr)
+		if (PlayerCharacter != nullptr && !isFuse)
 		{
 			bWidgetDisplay = true;
 		}
@@ -56,6 +56,18 @@ void AInteractObject::Interacted()
 		if (PlayerCharacter != nullptr && isFuse)
 		{
 			bFuseDisplay = true;
+
+			if (PlayerCharacter->SwitchesLeft < 1)
+			{
+				bInteractFuse = true;
+			}
+		}
+
+		if (PlayerCharacter == nullptr )
+		{
+			bWidgetDisplay = false;
+			bFuseDisplay = false;
+			bInteractFuse = false;
 		}
 
 		if (PlayerCharacter != nullptr && PlayerCharacter->bIsInteractCalled)
@@ -73,6 +85,7 @@ void AInteractObject::Interacted()
 			{
 				PlayerCharacter->FuseLeft = PlayerCharacter->FuseLeft - 1;
 				bFuseDisplay = false;
+				bInteractFuse = false;
 				CollectionRange->DestroyComponent();
 				PlayerCharacter->bIsInteractCalled = false;
 				CollectionRange = nullptr;
