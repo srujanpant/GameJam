@@ -15,10 +15,9 @@ class GAMEJAM_API AEnemy : public AGameJamCharacter
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
-		TArray<AActor*> PatrolPaths;
-
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<AActor*> PatrolPaths;
 
 	int CurrentPathIndex = 0;
 	int PathDirection = 1;
